@@ -7,16 +7,25 @@ let numbers = [];
 let newCalcs = [];
 let opClicked = false;
 let displayArray;
+let decimalClicked = false;
+let deciValue = 0;
 
 btns.forEach((button) => {
     button.addEventListener('click', () => {
         if(button.classList.contains('num')) {
+            if(decimalClicked){
+                deciValue = +input.value + +button.innerHTML/10;
+                input.value = deciValue;
+                decimalClicked = false;
+            } else {
             input.value += button.innerHTML;
             opClicked = false;
+            }
         }
         
-        if(button.innerHTML == 'C'){
+        if(button.innerHTML == 'AC'){
             input.value = "";
+            calcOps.value = "";
             numbers = [];
         }
 
@@ -41,13 +50,17 @@ btns.forEach((button) => {
             displayResult();
             numbers = [];
         }
+
+        if(button.classList.contains('dot') && input.value){
+            input.value = turnToDecimal(input.value);
+        }
        
     })
 })
 
 // Operation functions
 
-let add = (num1,num2) => {  // toNUmber!!
+let add = (num1,num2) => {
     return parseInt(num1) + parseInt(num2);
 }
 let subtract = (num1,num2) => {
@@ -58,30 +71,6 @@ let multiply = (num1,num2) => {
 }
 let divide = (num1,num2) => {
     return num1 / num2;
-}
-
-// Operate result
-let operate = (op,num1,num2) => {
-    switch(op){
-      case '*':
-        return multiply(num1,num2);
-        break;
-
-      case '/':
-        return divide(num1,num2);
-        break;
-
-      case '-':
-          return subtract(num1,num2);
-          break;
-
-      case '+':
-          return add(num1,num2);
-          break;
-    
-      default:
-          return 'No operation';
-    }
 }
 
 // Do the calculations in array
@@ -119,7 +108,6 @@ let calculateResult = () => {
             i = -1;
         }
     }
-    console.log(numbers);
     return numbers;
 }
 
@@ -127,4 +115,13 @@ let calculateResult = () => {
 
 let displayResult = () => {
     calcOps.value = calculateResult();
+}
+
+// Use decimal numbers
+
+let turnToDecimal = (num) => {
+    decimalClicked = true;
+    let decimalNum = (num*10/10).toFixed(1);
+    return decimalNum;
+    
 }

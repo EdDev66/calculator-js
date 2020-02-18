@@ -35,7 +35,17 @@ button {
     margin-top: 40px;
 }
 
+.back {
+    font-size: 1.4em;
+    background-color: lawngreen;
+}
+
 .delete {
+    font-size: 1.4em;
     background-color: #E8000D;
     color: #000;
+}
+
+.hidden {
+    visibility: hidden;
 }
