@@ -37,7 +37,8 @@ button {
 
 .back {
     font-size: 1.4em;
-    background-color: lawngreen;
+    background-color: #E8000D;
+    color: #000;
 }
 
 .delete {

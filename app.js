@@ -13,6 +13,7 @@ let deciValue = 0;
 btns.forEach((button) => {
     button.addEventListener('click', () => {
         if(button.classList.contains('num')) {
+            if(input.value == 0) input.value = '';
             if(decimalClicked){
                 deciValue = +input.value + +button.innerHTML/10;
                 input.value = deciValue;
@@ -54,6 +55,15 @@ btns.forEach((button) => {
         if(button.classList.contains('dot') && input.value){
             input.value = turnToDecimal(input.value);
         }
+
+        if(button.classList.contains('back')){
+            if(input.value == 0){
+                input.value = '';
+            } else {
+            input.value = goBack(input.value);
+            }
+            
+        }
        
     })
 })
@@ -61,7 +71,7 @@ btns.forEach((button) => {
 // Operation functions
 
 let add = (num1,num2) => {
-    return parseInt(num1) + parseInt(num2);
+    return parseFloat(num1) + parseFloat(num2);
 }
 let subtract = (num1,num2) => {
     return num1 - num2;
@@ -108,7 +118,7 @@ let calculateResult = () => {
             i = -1;
         }
     }
-    return numbers;
+    return Math.round(numbers * 10)/10;
 }
 
 // Voilla
@@ -124,4 +134,9 @@ let turnToDecimal = (num) => {
     let decimalNum = (num*10/10).toFixed(1);
     return decimalNum;
     
+}
+
+let goBack = (num) => {
+    num = Math.floor(num/10);
+    return num;
 }
